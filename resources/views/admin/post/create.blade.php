@@ -6,6 +6,10 @@
 
 <div class="container-fluid px-4">
 
+    @if (session('message'))
+        <div class="alert alert-success">{{ session('message') }}</div>
+    @endif
+
     <div class="card mt-4">
         <div class="card-header">
             <h4>Add Posts 
@@ -14,11 +18,23 @@
         </div>
         <div class="card-body">
 
-            <form action="" method="POST">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+
+            <form action="{{ url('admin/add-post') }}" method="POST">
+                @csrf
+
                 <div class="mb-3">
                     <label for="">Category</label>
-                    <select name="" class="form-control">
-                        <option value=""></option>
+                    <select name="category_id" class="form-control">
+                        @foreach ($category as $cateitem)
+                            <option value="{{ $cateitem->id }}">{{ $cateitem->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
