@@ -6,6 +6,10 @@
 
     <div class="container-fluid px-4">
 
+        @if (session('message'))
+            <div class="alert alert-success">{{ session('message') }}</div>
+        @endif
+
         <div class="card mt-4">
             <div class="card-header">
                 <h4>View Posts
@@ -13,10 +17,6 @@
                 </h4>
             </div>
             <div class="card-body">
-
-                @if (session('message'))
-                    <div class="alert alert-success">{{ session('message') }}</div>
-                @endif
 
                 <table class="table table-bordered">
                     <thead>
@@ -37,7 +37,7 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->status == '1' ? 'Hidden' : 'Visible' }}</td>
                                 <td>
-                                    <a href="{{ url('admin/edit-post/' . $item->id) }}" class="btn btn-success">Edit</a>
+                                    <a href="{{ url('admin/post/' . $item->id) }}" class="btn btn-success">Edit</a>
                                 </td>
                                 <td>
                                     <a href="{{ url('admin/delete-post/' . $item->id) }}" class="btn btn-danger">Delete</a>
